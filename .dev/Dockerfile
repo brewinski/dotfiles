@@ -2,6 +2,7 @@ FROM ubuntu:24.04
 
 # Prevent interactive prompts during package installations
 ENV DEBIAN_FRONTEND=noninteractive
+ENV NONINTERACTIVE=1
 
 # 1. Install baseline system dependencies required for Linuxbrew and Chezmoi
 RUN apt-get update && apt-get install -y \
