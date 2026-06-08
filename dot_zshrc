@@ -1,5 +1,8 @@
 alias v=nvim
 
+# Rancher Desktop docker compat layer
+export PATH="$HOME/.rd/bin:$PATH"
+
 # Source all custom functions
 for func in "$HOME/.config/zsh/functions/"*; do
     source "$func"
