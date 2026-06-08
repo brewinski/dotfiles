@@ -1,0 +1,34 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+# Ensure dockutil is installed via Homebrew before proceeding
+if ! command -v dockutil &> /dev/null; then
+    echo "Installing dockutil..."
+    brew install dockutil
+fi
+
+echo "Configuring macOS Dock items..."
+
+# Clear everything out for a clean slate (optional)
+dockutil --remove all --no-restart
+
+# Add your specific applications
+dockutil --add "/System/Applications/Apps.app" --no-restart
+dockutil --add "/Applications/Ghostty.app" --no-restart
+dockutil --add "/Applications/Google Chrome.app" --no-restart
+dockutil --add "/System/Applications/System Settings.app" --no-restart
+dockutil --add "/Applications/Slack.app" --no-restart
+dockutil --add "/Applications/Claude.app" --no-restart
+dockutil --add "/Applications/1Password.app" --no-restart
+
+# Add a spacer item if you like
+dockutil --add "" --type spacer --section apps --no-restart
+
+# Add a downloads folder to the right side of the dock
+dockutil --add "~/Downloads" --view grid --display folder --no-restart
+dockutil --add "~/github" --view grid --display folder --no-restart
+
+# Restart the Dock once at the end to apply all changes smoothly
+killall Dock
+
+{{ end -}}
