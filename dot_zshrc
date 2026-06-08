@@ -1,4 +1,6 @@
 alias v=nvim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # Homebrew
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
