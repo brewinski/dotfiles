@@ -7,6 +7,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ end -}}
 
+# Skip redundant update checks before each install — brew was just installed
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 brew bundle --file=/dev/stdin <<EOF
 brew "node"
 brew "go"
