@@ -27,7 +27,7 @@ docker run -it dotfiles-test
 Once inside, run the standard chezmoi one-liner to simulate a fresh device setup:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/brewinski/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/brewinski/dotfiles.git && source .zshrc
 ```
 
 This will:
