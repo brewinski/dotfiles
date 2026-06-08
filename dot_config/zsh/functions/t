@@ -1,0 +1,38 @@
+t() {
+    # 1. Define your base lookup directories
+    local search_dirs=(~/Projects ~/src ~/Development ~/code ~/.config ~/github ~/Development ~/gitea ~/.local/share/chezmoi)
+    
+    # Filter for directories that actually exist on this machine
+    local existing_dirs=()
+    for dir in "${search_dirs[@]}"; do [[ -d "$dir" ]] && existing_dirs+=("$dir"); done
+    [[ ${#existing_dirs} -eq 0 ]] && echo "No search directories found." && return 1
+
+    # 2. Get active tmux sessions
+    local sessions=$(tmux list-sessions -F '#S' 2>/dev/null)
+
+    # 3. Find all Git repos and cleanly strip the trailing .git folder
+    local git_dirs=$(fd -H -t d -g '.git' "${existing_dirs[@]}" 2>/dev/null | sed -E 's/\/\.git\/?$//')
+
+    # 4. Feed everything into fzf
+    local selection=$( (echo "$sessions"; echo "$git_dirs") | grep -v '^$' | fzf \
+        --prompt="⚡ Tmux / Git > " \
+        --height=40% \
+        --reverse \
+        --border)
+
+    [[ -z "$selection" ]] && return 0
+
+    # 5. Attach or Switch Session
+    if tmux has-session -t "$selection" 2>/dev/null; then
+        [[ -n "$TMUX" ]] && tmux switch-client -t "$selection" || tmux attach-session -t "$selection"
+    else
+        # Extract the exact repo folder name for the session title
+        local session_name=$(basename "$selection" | tr '.:' '__')
+
+        # Create and open the session inside the actual repo root
+        if ! tmux has-session -t "$session_name" 2>/dev/null; then
+            tmux new-session -d -s "$session_name" -c "$selection"
+        fi
+        [[ -n "$TMUX" ]] && tmux switch-client -t "$session_name" || tmux attach-session -t "$session_name"
+    fi
+}

@@ -1,1 +1,6 @@
 alias v=nvim
+
+# Source all custom functions
+for func in "$HOME/.config/zsh/functions/"*; do
+    source "$func"
+done
