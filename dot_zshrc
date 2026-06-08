@@ -1,6 +1,19 @@
 alias v=nvim
+alias vim=nvim
+alias vi=nvim
+alias cat="bat"
+alias ls="eza --icons"
+alias ll="eza -la --icons --git"
+alias tree="eza --tree --icons"
+
 export EDITOR=nvim
 export VISUAL=nvim
+
+# History
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
 
 # Homebrew
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
@@ -15,6 +28,27 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # Rancher Desktop docker compat layer
 export PATH="$HOME/.rd/bin:$PATH"
+
+# zsh plugins
+[[ -f $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+    source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+    source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# fzf
+[[ -f $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh ]] && \
+    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+[[ -f $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]] && \
+    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# gcloud
+[[ -f $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc ]] && \
+    source $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc
+[[ -f $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc ]] && \
+    source $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc
 
 # Source all custom functions
 for func in "$HOME/.config/zsh/functions/"*; do
