@@ -1,17 +1,16 @@
 # Dotfiles Test Environment
 
-Test your chezmoi configuration in an isolated container before applying changes to your machine.
+Simulate a fresh machine setup to verify your chezmoi configuration end-to-end.
 
 ## Prerequisites
 
 - [Rancher Desktop](https://rancherdesktop.io) with the **dockerd (moby)** container runtime selected
-- Docker compatibility layer enabled (on by default in Rancher Desktop)
 
 ## Usage
 
-All commands are run from the **repo root**.
-
 ### Build
+
+From the repo root:
 
 ```bash
 docker build -f .dev/Dockerfile -t dotfiles-test .
@@ -23,24 +22,21 @@ docker build -f .dev/Dockerfile -t dotfiles-test .
 docker run -it dotfiles-test
 ```
 
-You'll land in a zsh shell as `testuser` with your dotfiles applied. Verify your aliases, PATH, config files, and installed tools are all present.
+### Bootstrap inside the container
 
-### Iterate
+Once inside, run the standard chezmoi one-liner to simulate a fresh device setup:
 
 ```bash
-docker build -f .dev/Dockerfile -t dotfiles-test . && docker run -it dotfiles-test
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/brewinski/dotfiles.git
 ```
 
-## How it works
+This will:
+1. Install chezmoi
+2. Clone your dotfiles repo
+3. Run `chezmoi apply` — triggering all `run_once_` and `run_onchange_` scripts
 
-| Step | What happens |
-|------|-------------|
-| 1 | Ubuntu 24.04 base with build dependencies |
-| 2 | Non-root `testuser` created (Homebrew requires this) |
-| 3 | Linuxbrew installed |
-| 4 | `chezmoi` installed via brew |
-| 5 | Local chezmoi source copied into the container |
-| 6 | `chezmoi apply` runs all `run_once_` and `run_onchange_` scripts |
-| 7 | Interactive zsh shell for manual verification |
+## What the container provides
 
-> **Note:** macOS-only casks are excluded automatically via template conditionals — only Linux-compatible packages are installed in the container.
+A minimal Ubuntu 24.04 environment with only the system-level dependencies
+required to bootstrap Homebrew and chezmoi — nothing else is pre-installed.
+This matches the real-world state of a new machine as closely as possible.
