@@ -3,7 +3,7 @@
 # Check if Homebrew is installed, install it if missing
 if ! command -v brew &> /dev/null; then
     echo "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://githubusercontent.com)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Dynamically load brew environment for the rest of this script execution
     if [ -d "/opt/homebrew/bin" ]; then
