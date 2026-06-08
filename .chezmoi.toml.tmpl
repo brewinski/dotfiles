@@ -1,0 +1,6 @@
+[data]
+    git_name = "{{ promptStringOnce . "git_name" "Git name (personal/github/gitea)" }}"
+    git_email = "{{ promptStringOnce . "git_email" "Git email (personal/github/gitea)" }}"
+    git_work_name = "{{ promptStringOnce . "git_work_name" "Git name (work/bitbucket)" }}"
+    git_work_email = "{{ promptStringOnce . "git_work_email" "Git email (work/bitbucket)" }}"
+    git_signing_key = "{{ promptStringOnce . "git_signing_key" "SSH public key for commit signing (ssh-ed25519 AAAA...)" }}"

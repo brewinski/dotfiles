@@ -1,0 +1,51 @@
+[user]
+    name = {{ .git_name }}
+    email = {{ .git_email }}
+    signingkey = {{ .git_signing_key }}
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = {{ if eq .chezmoi.os "darwin" }}/Applications/1Password.app/Contents/MacOS/op-ssh-sign{{ else }}op-ssh-sign{{ end }}
+
+[commit]
+    gpgsign = true
+
+[core]
+    excludesFile = ~/.gitignore_global
+    autocrlf = input
+    pager = delta
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[alias]
+    lg = log --oneline --graph --decorate --all
+    st = status -sb
+    co = checkout
+    br = branch
+
+# Work repos in ~/Development use a separate identity
+[includeIf "gitdir:~/Development/"]
+    path = ~/.gitconfig-work
