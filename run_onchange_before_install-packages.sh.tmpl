@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Ensure brew is in PATH on fresh installs before shellenv has been configured
+{{ if eq .chezmoi.os "darwin" -}}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ else -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end -}}
+
+brew bundle --file=/dev/stdin <<EOF
+brew "node"
+brew "go"
+brew "git"
+brew "tmux"
+brew "fzf"
+brew "lazygit"
+brew "chezmoi"
+brew "neovim"
+brew "fd"
+brew "ripgrep"
+brew "tree-sitter-cli"
+brew "lua"
+brew "luarocks"
+{{- if eq .chezmoi.os "darwin" }}
+cask "google-chrome"
+cask "claude"
+cask "1password"
+cask "1password-cli"
+cask "claude-code"
+cask "ghostty"
+{{- end }}
+EOF
