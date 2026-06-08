@@ -43,6 +43,9 @@ source ~/.zshrc
 
 > On a real machine you'd just open a new terminal — sourcing is only needed here
 > because the shell was already running when chezmoi wrote `.zshrc`.
+>
+> You will be prompted for your personal details (names, emails, SSH signing key)
+> on first run. Have these ready before bootstrapping.
 
 ## What the container provides
 
