@@ -1,4 +1,0 @@
-brew "chezmoi"
-brew "neovim"
-cask "1password"
-cask "ghostty"
