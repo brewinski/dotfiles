@@ -45,10 +45,10 @@ export PATH="$HOME/.rd/bin:$PATH"
 eval "$(zoxide init zsh)"
 
 # gcloud
-[[ -f $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc ]] && \
-    source $HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc
-[[ -f $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc ]] && \
-    source $HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc
+[[ -f $HOMEBREW_PREFIX/Caskroom/gcloud-cli/current/google-cloud-sdk/path.zsh.inc ]] && \
+    source $HOMEBREW_PREFIX/Caskroom/gcloud-cli/current/google-cloud-sdk/path.zsh.inc
+[[ -f $HOMEBREW_PREFIX/Caskroom/gcloud-cli/current/google-cloud-sdk/completion.zsh.inc ]] && \
+    source $HOMEBREW_PREFIX/Caskroom/gcloud-cli/current/google-cloud-sdk/completion.zsh.inc
 
 # Source all custom functions
 for func in "$HOME/.config/zsh/functions/"*; do
