@@ -5,4 +5,4 @@
     git_gitea_email = "{{ promptStringOnce . "git_gitea_email" "Git email (gitea)" }}"
     git_work_name = "{{ promptStringOnce . "git_work_name" "Git name (work/bitbucket)" }}"
     git_work_email = "{{ promptStringOnce . "git_work_email" "Git email (work/bitbucket)" }}"
-    git_signing_key_ref = "{{ promptStringOnce . "git_signing_key_ref" "1Password reference for SSH signing public key (op://vault/item/field)" }}"
+    git_signing_key = "{{ promptStringOnce . "git_signing_key" "SSH public key for commit signing (ssh-ed25519 AAAA...)" }}"

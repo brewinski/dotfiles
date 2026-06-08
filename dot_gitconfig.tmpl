@@ -2,7 +2,7 @@
 [user]
     name = {{ .git_github_name }}
     email = {{ .git_github_email }}
-    signingkey = {{ onepasswordRead .git_signing_key_ref }}
+    signingkey = {{ .git_signing_key }}
 
 [gpg]
     format = ssh
