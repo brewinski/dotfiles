@@ -1,0 +1,36 @@
+# Theme — matches starship catppuccin mocha
+theme = catppuccin-mocha
+
+# Font — requires a Nerd Font for starship icons
+# Install: brew install --cask font-jetbrains-mono-nerd-font
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+
+# Cursor
+cursor-style = bar
+cursor-style-blink = true
+
+# Window
+window-padding-x = 12
+window-padding-y = 12
+window-decoration = false
+
+# Slightly frosted background
+background-opacity = 0.95
+background-blur-radius = 20
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
+
+# Use Option as Alt (needed for many terminal shortcuts)
+macos-option-as-alt = left
+
+# Scrollback
+scrollback-limit = 10000
+
+# Copy on select
+copy-on-select = true
+
+# URL clicking
+click-repeat-interval = 500
