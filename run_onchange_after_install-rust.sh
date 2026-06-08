@@ -7,11 +7,14 @@ elif [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-if ! command -v rustup &> /dev/null; then
-    echo "rustup not found. Skipping Rust setup."
+if ! command -v rustup-init &> /dev/null; then
+    echo "rustup-init not found. Skipping Rust setup."
     exit 0
 fi
 
-rustup install stable
-rustup default stable
+rustup-init -y --no-modify-path
+
+# Source cargo env so rustup and rustfmt are available in this script
+source "$HOME/.cargo/env"
+
 rustup component add rustfmt clippy
