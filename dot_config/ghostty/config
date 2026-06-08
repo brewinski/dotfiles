@@ -1,5 +1,5 @@
 # Theme — matches starship catppuccin mocha
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 # Font — requires a Nerd Font for starship icons
 # Install: brew install --cask font-jetbrains-mono-nerd-font
