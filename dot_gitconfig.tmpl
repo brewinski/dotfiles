@@ -1,7 +1,8 @@
+# Default identity — github values used as fallback outside managed directories
 [user]
-    name = {{ .git_name }}
-    email = {{ .git_email }}
-    signingkey = {{ .git_signing_key }}
+    name = {{ .git_github_name }}
+    email = {{ .git_github_email }}
+    signingkey = {{ onepasswordRead .git_signing_key_ref }}
 
 [gpg]
     format = ssh
@@ -46,6 +47,11 @@
     co = checkout
     br = branch
 
-# Work repos in ~/Development use a separate identity
+[includeIf "gitdir:~/github/"]
+    path = ~/.gitconfig-github
+
+[includeIf "gitdir:~/gitea/"]
+    path = ~/.gitconfig-gitea
+
 [includeIf "gitdir:~/Development/"]
     path = ~/.gitconfig-work
