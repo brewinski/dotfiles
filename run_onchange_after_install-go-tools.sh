@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Ensure brew-installed binaries are in PATH (each chezmoi script runs in a fresh process)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # Ensure 'go' is installed before running
 if ! command -v go &> /dev/null; then
     echo "Go is not installed. Skipping Go tools installation."
