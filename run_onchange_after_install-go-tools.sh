@@ -23,9 +23,7 @@ tools=(
     "github.com/cweill/gotests/gotests@latest"
     "golang.org/x/tools/cmd/callgraph@latest"
     "golang.org/x/vuln/cmd/govulncheck@latest"
-    "github.com/rakyll/gotestsum@latest"
-    "github.com/koron/gomvp@latest"
-    "github.com/stevenmatthewt/godoc-static@latest"
+    "gotest.tools/gotestsum@latest"
     "github.com/abice/go-enum@latest"
     "github.com/onsi/ginkgo/v2/ginkgo@latest"
 )
