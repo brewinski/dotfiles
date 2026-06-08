@@ -7,6 +7,9 @@ elif [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Rancher Desktop docker compat layer
 export PATH="$HOME/.rd/bin:$PATH"
 
