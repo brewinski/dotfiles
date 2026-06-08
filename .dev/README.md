@@ -35,6 +35,15 @@ This will:
 2. Clone your dotfiles repo
 3. Run `chezmoi apply` — triggering all `run_once_` and `run_onchange_` scripts
 
+Once complete, source your shell config to pick up PATH changes (brew, etc.):
+
+```bash
+source ~/.zshrc
+```
+
+> On a real machine you'd just open a new terminal — sourcing is only needed here
+> because the shell was already running when chezmoi wrote `.zshrc`.
+
 ## What the container provides
 
 A minimal Ubuntu 24.04 environment with only the system-level dependencies
