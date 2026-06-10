@@ -11,8 +11,8 @@ cursor-style = bar
 cursor-style-blink = true
 
 # Window
-window-padding-x = 12
-window-padding-y = 12,0
+window-padding-x = 0
+window-padding-y = 0
 window-decoration = false
 
 # Slightly frosted background
