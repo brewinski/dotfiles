@@ -1,11 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git -C /Users/chris.brewin/.local/share/chezmoi add run_once_after_install-packages.sh)",
-      "Bash(git -C /Users/chris.brewin/.local/share/chezmoi commit -m ' *)",
-      "Bash(git -C /Users/chris.brewin/.local/share/chezmoi add empty_dot_zshrc dot_config/zsh/)",
-      "Bash(git -C /Users/chris.brewin/.local/share/chezmoi add run_onchange_after_mac-dock.sh.tmpl run_onchange_mac-dock.sh.tmpl)",
-      "Bash(git *)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

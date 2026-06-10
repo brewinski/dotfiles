@@ -1,0 +1,117 @@
+start-at-login = true
+after-startup-command = ['exec-and-forget borders active_color=0xffca9ee6 inactive_color=0xff51576d width=6.0 style=round']
+
+# ==============================================================================
+# Gaps
+# ==============================================================================
+[gaps]
+inner.horizontal = 8
+inner.vertical   = 8
+outer.left       = 8
+outer.bottom     = 8
+outer.top        = 8
+outer.right      = 8
+
+# ==============================================================================
+# Key bindings — main mode
+# ==============================================================================
+[mode.main.binding]
+
+# Focus
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# Move windows
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Resize
+alt-minus       = 'resize smart -50'
+alt-equal       = 'resize smart +50'
+
+# Layout
+alt-slash       = 'layout tiles horizontal vertical'
+alt-comma       = 'layout accordion horizontal vertical'
+alt-shift-space = 'layout floating tiling'
+
+# Workspaces
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+# Move window to workspace
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# Apps
+alt-enter     = 'exec-and-forget open -a Ghostty'
+alt-b     = 'exec-and-forget open -a "Google Chrome"'
+alt-s     = 'exec-and-forget open -a Slack'
+alt-a     = 'exec-and-forget open -a Claude'
+alt-r     = 'exec-and-forget open -a "Rancher Desktop"'
+alt-p     = 'exec-and-forget open -a 1Password'
+alt-o     = 'exec-and-forget open -a Obsidian'
+alt-m         = 'exec-and-forget osascript -e "tell application \"Terminal\" to do script \"btop\""'
+alt-shift-q   = 'close'
+
+# Service mode
+alt-shift-semicolon = 'mode service'
+
+# ==============================================================================
+# Key bindings — service mode (reload / recovery)
+# ==============================================================================
+# ==============================================================================
+# Window rules
+# ==============================================================================
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 5'
+
+# Float these apps
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'io.rancherdesktop.app'
+run = 'layout floating'
+
+[mode.service.binding]
+esc        = ['reload-config', 'mode main']
+r          = ['flatten-workspace-tree', 'mode main']
+f          = ['layout floating tiling', 'mode main']
+backspace  = ['close-all-windows-but-current', 'mode main']

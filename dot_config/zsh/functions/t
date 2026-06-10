@@ -1,7 +1,7 @@
 t() {
     # 1. Define your base lookup directories
     local search_dirs=(~/Projects ~/src ~/Development ~/code ~/.config ~/github ~/Development ~/gitea ~/.local/share/chezmoi)
-    
+
     # Filter for directories that actually exist on this machine
     local existing_dirs=()
     for dir in "${search_dirs[@]}"; do [[ -d "$dir" ]] && existing_dirs+=("$dir"); done
@@ -22,17 +22,51 @@ t() {
 
     [[ -z "$selection" ]] && return 0
 
-    # 5. Attach or Switch Session
+    # 5. Attach or switch to existing session
     if tmux has-session -t "$selection" 2>/dev/null; then
         [[ -n "$TMUX" ]] && tmux switch-client -t "$selection" || tmux attach-session -t "$selection"
-    else
-        # Extract the exact repo folder name for the session title
-        local session_name=$(basename "$selection" | tr '.:' '__')
-
-        # Create and open the session inside the actual repo root
-        if ! tmux has-session -t "$session_name" 2>/dev/null; then
-            tmux new-session -d -s "$session_name" -c "$selection"
-        fi
-        [[ -n "$TMUX" ]] && tmux switch-client -t "$session_name" || tmux attach-session -t "$session_name"
+        return 0
     fi
+
+    # 6. Create new session in the project directory
+    local session_name=$(basename "$selection" | tr '.:' '__')
+    if ! tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux new-session -d -s "$session_name" -c "$selection"
+    fi
+
+    # 7. Check for a .session/tmux file and run it if trusted
+    local session_file="$selection/.session/tmux"
+    if [[ -f "$session_file" ]]; then
+        local trust_dir="${XDG_CONFIG_HOME:-$HOME/.config}/tmux"
+        local trust_file="$trust_dir/trusted"
+        mkdir -p "$trust_dir"
+        touch "$trust_file"
+
+        local file_hash=$(shasum -a 256 "$session_file" | awk '{print $1}')
+        local stored_hash=$(grep "^$session_file " "$trust_file" 2>/dev/null | awk '{print $2}')
+
+        if [[ "$file_hash" != "$stored_hash" ]]; then
+            echo ""
+            echo "⚠️  Untrusted session file found: $session_file"
+            echo ""
+            cat "$session_file"
+            echo ""
+            echo -n "Trust and run this session file? [y/N] "
+            read -r answer
+            if [[ "$answer" =~ ^[Yy]$ ]]; then
+                # Update trust store (remove old entry, add new)
+                grep -v "^$session_file " "$trust_file" > "${trust_file}.tmp" && mv "${trust_file}.tmp" "$trust_file"
+                echo "$session_file $file_hash" >> "$trust_file"
+            else
+                echo "Session created without running session file."
+                [[ -n "$TMUX" ]] && tmux switch-client -t "$session_name" || tmux attach-session -t "$session_name"
+                return 0
+            fi
+        fi
+
+        # Run the session file with SESSION and PROJECT set
+        SESSION="$session_name" PROJECT="$selection" bash "$session_file"
+    fi
+
+    [[ -n "$TMUX" ]] && tmux switch-client -t "$session_name" || tmux attach-session -t "$session_name"
 }

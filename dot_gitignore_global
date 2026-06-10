@@ -1,3 +1,6 @@
+# Tmux project sessions
+.session/
+
 # macOS
 .DS_Store
 .AppleDouble

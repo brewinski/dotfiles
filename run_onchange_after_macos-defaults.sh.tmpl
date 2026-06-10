@@ -65,6 +65,11 @@ defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
 # ==============================================================================
+# Menu bar — always visible
+# ==============================================================================
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
+
+# ==============================================================================
 # Misc
 # ==============================================================================
 # Don't offer new disks for Time Machine backup
@@ -73,6 +78,8 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Faster Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
+# Group windows by app in Mission Control
+defaults write com.apple.dock expose-group-apps -bool true
 # Require password immediately after sleep
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
