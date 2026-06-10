@@ -1,6 +1,14 @@
 start-at-login = true
-after-startup-command = ['exec-and-forget borders active_color=0xffca9ee6 inactive_color=0xff51576d width=6.0 style=round']
+after-startup-command = [
+'exec-and-forget borders active_color=0xffca9ee6 inactive_color=0xff51576d width=6.0 style=round',
+'exec-and-forget sketchybar'
+]
 
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = [
+	'/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 # ==============================================================================
 # Gaps
 # ==============================================================================
@@ -9,7 +17,7 @@ inner.horizontal = 8
 inner.vertical   = 8
 outer.left       = 8
 outer.bottom     = 8
-outer.top        = 8
+outer.top        = 32
 outer.right      = 8
 
 # ==============================================================================
@@ -68,7 +76,6 @@ alt-a     = 'exec-and-forget open -a Claude'
 alt-r     = 'exec-and-forget open -a "Rancher Desktop"'
 alt-p     = 'exec-and-forget open -a 1Password'
 alt-o     = 'exec-and-forget open -a Obsidian'
-alt-m         = 'exec-and-forget osascript -e "tell application \"Terminal\" to do script \"btop\""'
 alt-shift-q   = 'close'
 
 # Service mode
@@ -83,6 +90,10 @@ alt-shift-semicolon = 'mode service'
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
