@@ -105,12 +105,13 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
 run = 'move-node-to-workspace 4'
 
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace 5'
 
 # Float these apps
 [[on-window-detected]]
